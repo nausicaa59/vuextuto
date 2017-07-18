@@ -35,9 +35,9 @@
                     <div class="col-md-6">
                         <div class="form-group" v-bind:class="classObject(erreur_auteur.valide)">                    
                             <label>Auteur</label>
-                                <select class="form-control"  v-model="auteur">
+                            <select class="form-control"  v-model="auteur">
                                 <option :value="item_auteur" v-for="item_auteur in auteurs">{{item_auteur}}</option>
-                                </select>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" v-bind:class="classObject(erreur_description.valide)">                    
+                        <div class="form-group" v-bind:class="classObject(erreur_description.valide)">                  
                             <label>Description</label>
                             <textarea class="form-control" v-model="description"></textarea>
                         </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group" v-bind:class="classObject(erreur_meta_title.valide)">                    
+                        <div class="form-group" v-bind:class="classObject(erreur_meta_title.valide)">                
                             <label>Méta Title</label>
                             <input type="text" class="form-control"  v-model="meta_title">
                         </div>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group" v-bind:class="classObject(erreur_meta_description.valide)">                    
+                        <div class="form-group" v-bind:class="classObject(erreur_meta_description.valide)">             
                             <label>Méta-Description</label>
                             <textarea class="form-control" v-model="meta_description"></textarea>
                         </div>
@@ -103,6 +103,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                        <input-upload-file :chemin="fa_image" type="mavaleur" @toggle="updateImgCatego($event)"></input-upload-file>
                     </div>
                 </div>
             </div>
@@ -112,6 +113,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import InputUploadFile from './components/InputUploadFile.vue';
+
 
 export default {
 name: 'app',
@@ -121,7 +124,7 @@ name: 'app',
         }
     },
     components: {
-
+        InputUploadFile
     },
     computed : {
         meta_title: {
@@ -204,15 +207,6 @@ name: 'app',
                 this.$store.commit('controllerImgCatego', value);
             }
         },
-        fa_image: {
-            get () {
-                return this.$store.getters.fa_image;
-            },
-            set (value) {
-                this.$store.commit('fa_image', value);
-                this.$store.commit('controllerFaImage', value);
-            }
-        },
         fa_title: {
             get () {
                 return this.$store.getters.fa_title;
@@ -255,6 +249,7 @@ name: 'app',
             "erreur_fa_title",
             "erreur_fa_description",
             "erreur_contenu",
+            "fa_image"
         ])
     },
     created() {
@@ -273,7 +268,12 @@ name: 'app',
                 'valide': isValide,
                 'err': !isValide,
             }
-        }
+        },
+        updateImgCatego: function(a) {
+            console.log(a);
+            this.$store.commit('fa_image', a);
+            this.$store.commit('controllerFaImage', a);
+        },
     }
 }
 </script>
