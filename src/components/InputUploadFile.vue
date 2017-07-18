@@ -4,17 +4,23 @@
         <div class="input-group">                     
             <label class="input-group-btn">
                 <span class="btn btn-primary">
-                    Télécharger <input type="file" style="display: none;" v-on:change="upload">
+                    <div v-if="!statusLoad.start">
+                        Télécharger
+                    </div>
+                    <div class="loader-zone" v-if="statusLoad.start">
+                        <div class="loader"></div>
+                    </div>
+                    <input type="file" style="display: none;" v-on:change="upload">
                 </span>
             </label>
-            <input type="text" class="form-control" :value="chemin">            
+            <input type="text" class="form-control" :value="source">            
         </div>
-        <div class="alert alert-danger" role="alert" v-for="erreur in erreurs_ajax_tabl">
+        <div class="alert alert-danger" role="alert" v-for="erreur in errSource.erreurs">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>
-            {{erreur}}
+            {{erreur}}         
         </div> 
-        <img :src="chemin" v-if="chemin!==''">
+        <img :src="source" v-if="source!==''">
+
     </div>
 </template>
 
@@ -24,40 +30,20 @@ import * as tools from './../tools';
 
 export default {
     name: 'InputUploadFile',
-    props: ["chemin","type"],
-    data () {
-        return {
-            erreur_ajax: false,
-            erreurs_ajax_tabl:[],
-            internal_chemin: ""
-        }
-    },
+    props: ["source","uploader", "errSource", "statusLoad"],
     methods : {
         upload : function(e){
             var self = this;
             var fileList = e.target.files;
-            var url = 'http://personnes.dev/upload.php';
+            var formData = new FormData();
 
-            var callSuccess = function(response){
-                console.log(response);
-                if(response.data.valide)
-                {
-                    self.internal_chemin = response.data.src;
-                    self.$emit('toggle',self.internal_chemin);
-                }                
-            }
+            Array
+            .from(Array(fileList.length).keys())
+            .map(x => {
+                formData.append("uploadFieldName", fileList[x], fileList[x].name);
+            }); 
 
-            var callError = function(error){
-                console.log(error);
-                self.erreur_ajax = true;                
-                self.erreurs_ajax_tabl.push("Erreur lors de l'upload :");           
-            }
-            
-            if (!fileList.length) return;
-            this.erreur_ajax = false;
-            this.erreurs_ajax_tabl = [];
-            this.upload_file = fileList[0].name;
-            tools.uploadImageFromFileList(fileList, url, callSuccess, callError)
+            this.uploader(formData);           
         }
     },
     watch : {}
@@ -81,6 +67,23 @@ export default {
         {
             height: 120px;
             margin-top: 30px;
+        }
+
+        .loader-zone
+        {
+            .loader {
+                border: 3px solid white; /* Light grey */
+                border-top: 3px solid #d1d1d1; /* Blue */
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                animation: spin 2s linear infinite;
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }       
         }
 	}
 </style>

@@ -28,7 +28,7 @@
                         <div class="form-group" v-bind:class="classObject(erreur_categorie.valide)">                    
                             <label>Catégorie</label>
                             <select class="form-control"  v-model="categorie">
-                                <option :value="catego" v-for="catego in categories">{{catego}}</option>
+                                <option :value="catego.slug" v-for="catego in categories">{{catego.nom}}</option>
                             </select>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                         <div class="form-group" v-bind:class="classObject(erreur_auteur.valide)">                    
                             <label>Auteur</label>
                             <select class="form-control"  v-model="auteur">
-                                <option :value="item_auteur" v-for="item_auteur in auteurs">{{item_auteur}}</option>
+                                <option :value="item_auteur.slug" v-for="item_auteur in auteurs">{{item_auteur.nom}}</option>
                             </select>
                         </div>
                     </div>
@@ -57,6 +57,12 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                        <input-upload-file
+                            :statusLoad="load_img_catego" 
+                            :source="img_catego" 
+                            :errSource="erreur_img_catego" 
+                            :uploader="UploadCategoImage">
+                        </input-upload-file>
                     </div>
                 </div>
                 <!-- SEO - Général -->
@@ -103,7 +109,12 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <input-upload-file :chemin="fa_image" type="mavaleur" @toggle="updateImgCatego($event)"></input-upload-file>
+                        <input-upload-file 
+                            :source="fa_image" 
+                            :statusLoad="load_fa_image"
+                            :errSource="erreur_fa_image" 
+                            :uploader="UploadfaImage">
+                        </input-upload-file>
                     </div>
                 </div>
             </div>
@@ -249,7 +260,10 @@ name: 'app',
             "erreur_fa_title",
             "erreur_fa_description",
             "erreur_contenu",
-            "fa_image"
+            "fa_image",
+            "img_catego",
+            "load_img_catego",
+            "load_fa_image"
         ])
     },
     created() {
@@ -260,19 +274,17 @@ name: 'app',
         btCliquer : function(){
             this.afficher = !this.afficher;
         },
-        test : function(val){
-            return "ok";
+        UploadfaImage : function(val){
+            this.$store.dispatch('uploadFaImage', val);
+        },
+        UploadCategoImage : function(val){
+            this.$store.dispatch('uploadImgCatego', val);
         },
         classObject: function (isValide) {
             return {
                 'valide': isValide,
                 'err': !isValide,
             }
-        },
-        updateImgCatego: function(a) {
-            console.log(a);
-            this.$store.commit('fa_image', a);
-            this.$store.commit('controllerFaImage', a);
         },
     }
 }

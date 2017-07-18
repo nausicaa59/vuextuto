@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import * as tools from '../tools';
 import {validation} from '../Validations';
+import {api} from '../configs'
 
 Vue.use(Vuex)
 
@@ -34,11 +35,21 @@ const state = {
 		categorie : 		{ valide:false, erreurs:[] },
 		auteur : 			{ valide:false, erreurs:[] },
 		tags : 				{ valide:false, erreurs:[] },
-		img_catego : 		{ valide:false, erreurs:[] },
-		fa_image : 			{ valide:false, erreurs:[] },
+		img_catego : 		{ valide:true, erreurs:[] },
+		fa_image : 			{ valide:true, erreurs:[] },
 		fa_title : 			{ valide:false, erreurs:[] },
 		fa_description : 	{ valide:false, erreurs:[] },
 		contenu	 : 			{ valide:false, erreurs:[] },	
+  	},
+  	load : {
+  		img_catego : {
+  			start : false,
+  			pourc : 0
+  		},
+  		fa_image : {
+  			start : false,
+  			pourc : 0
+  		}
   	}
 }
 
@@ -75,6 +86,8 @@ const store = new Vuex.Store({
 		erreur_fa_title : 			state => state.erreurs.fa_title,
 		erreur_fa_description : 	state => state.erreurs.fa_description,
 		erreur_contenu : 			state => state.erreurs.contenu,
+		load_img_catego : 			state => state.load.img_catego,
+		load_fa_image : 			state => state.load.fa_image,
 	},
 	mutations: {
 		meta_title: (state, vals) => {
@@ -117,18 +130,13 @@ const store = new Vuex.Store({
 		contenu : (state, vals) => {
 		    state.article.contenu  = vals;
 		},
-		increment (state) {
-			state.count += 1
-		},
 		test(state, response) {
 			console.log("test !!", response);
 		},
 		categories(state, vals) {
-			console.log("changement categos :",vals);
 			state.categories = vals;
 		},
 		auteurs(state, vals) {
-			console.log("changement auteurs :",vals);
 			state.auteurs = vals;
 		},
 		controllerMetaTitle : (state, vals) => {
@@ -196,6 +204,14 @@ const store = new Vuex.Store({
 		    state.erreurs.contenu.valide = test.valide;
 		    state.erreurs.contenu.erreurs = test.erreurs;
 		},
+		statusFaImage : (state, vals) => {
+		    state.erreurs.fa_image.valide = vals.valide;
+		    state.erreurs.fa_image.erreurs = vals.erreurs;
+		},
+		statusImgCatego : (state, vals) => {
+		    state.erreurs.img_catego.valide = vals.valide;
+		    state.erreurs.img_catego.erreurs = vals.erreurs;
+		},		
 		article(state, vals) {
 			console.log("changement articles :",vals);
 			state.article.meta_title			=	"",
@@ -211,6 +227,14 @@ const store = new Vuex.Store({
 			state.article.fa_title 				=	"",
 			state.article.fa_description		=	""  
 		},
+		load_img_catego(state, vals) {
+			state.load.img_catego.start = vals.start;
+			state.load.img_catego.pourc = vals.pourc;
+		},
+		load_fa_image(state, vals) {
+			state.load.fa_image.start = vals.start;
+			state.load.fa_image.pourc = vals.pourc;
+		}
 	},
 	actions:{
 		init({ dispatch, commit, state }){
@@ -229,31 +253,62 @@ const store = new Vuex.Store({
 			});
 		},
 		initData({ commit, state }){
-			return axios.get('https://jsonplaceholder.typicode.com/posts')
+			return axios.get(api.article.get)
 				.then(function (response) {
-					commit('article',"data ok");				
+					commit('article',response.data);				
 				})
 				.catch(function (error) {	
 					commit('test',"data erreur");	
 				});
 		},
 		initCategories({ commit, state }){
-			return axios.get('https://jsonplaceholder.typicode.com/posts')
+			return axios.get(api.categorie.get)
 				.then(function (response) {
-					commit('categories',["cat1", "cat2", "cat3"]);				
+					commit('categories',response.data);				
 				})
 				.catch(function (error) {	
 					commit('test',"catego erreur");	
 				});
 		},
 		initAuteurs({ commit, state }){
-			return axios.get('https://jsonplaceholder.typicode.com/posts')
+			return axios.get(api.auteur.get)
 				.then(function (response) {
-					commit('auteurs',["personneA", "personneB"]);				
+					commit('auteurs',response.data);				
 				})
 				.catch(function (error) {	
 					commit('test',"personne erreur");	
 				});
+		},
+		uploadFaImage({ commit, state }, val){
+			commit('load_fa_image',{start:true, pour:0});
+			
+		    axios.post(api.image.post, val)
+		    .then(function (response) {
+		        commit('fa_image',response.data.src);
+		        commit('load_fa_image',{start:false, pour:100});
+		        commit('statusFaImage', {valide:true,erreurs:[]});
+		    })
+		    .catch(function (error) {
+		    	commit('load_fa_image',{start:false, pour:100});
+		        commit('statusFaImage', {
+		        	valide:false, 
+		        	erreurs:["Erreur ajax, impossible d'accéder à l'api"]
+		        })
+		    });	
+		},
+		uploadImgCatego({ commit, state }, val){
+			commit('load_img_catego',{start:true, pour:0});
+
+		    axios.post(api.image.post, val)
+		    .then(function (response) {
+		        commit('img_catego',response.data.src);
+		        commit('load_img_catego',{start:false, pour:100});
+		        commit('statusImgCatego', {valide:true,erreurs:[]});
+		    })
+		    .catch(function (error) {
+		    	commit('load_img_catego',{start:false, pour:100});
+		        commit('statusImgCatego', {valide:false, erreurs:["Erreur ajax, impossible d'accéder à l'api"]})
+		    });	
 		}
 	}
 })
