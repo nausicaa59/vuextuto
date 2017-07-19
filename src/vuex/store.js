@@ -69,6 +69,7 @@ const store = new Vuex.Store({
 		fa_title: 			state => state.article.fa_title,
 		fa_description: 	state => state.article.fa_description,
 		contenu	: 			state => state.article.contenu,
+		contenuByIndex: 	state => index => state.article.contenu[index],
 		count: 				state => state.count,
 		categories: 		state => state.categories,
 		auteurs: 			state => state.auteurs,
@@ -87,7 +88,7 @@ const store = new Vuex.Store({
 		erreur_fa_description : 	state => state.erreurs.fa_description,
 		erreur_contenu : 			state => state.erreurs.contenu,
 		load_img_catego : 			state => state.load.img_catego,
-		load_fa_image : 			state => state.load.fa_image,
+		load_fa_image : 			state => state.load.fa_image,		
 	},
 	mutations: {
 		meta_title: (state, vals) => {
@@ -234,7 +235,31 @@ const store = new Vuex.Store({
 		load_fa_image(state, vals) {
 			state.load.fa_image.start = vals.start;
 			state.load.fa_image.pourc = vals.pourc;
-		}
+		},
+    	contenuAddImageBlock(state, vals) {
+    		state.article.contenu.splice(vals,0,{
+            	type:"image",
+            	src:"",
+            	auteur:"",
+            	auteurUrl:"",
+            	label:"",
+            	html:""
+            });
+    	},
+    	contenuAddTextBlock(state,vals) {
+    		state.article.contenu.splice(vals,0,{
+            	type:"text",
+            	src:"",
+            	html:""
+            });
+    	},
+    	contenuDeleteBlock(state, vals) {
+    		state.article.contenu.splice(vals, 1);
+    	},
+    	contenuEditTextBlock(state,vals) {
+    		console.log(vals);
+    		state.article.contenu[vals.index].src = vals.value;
+    	},
 	},
 	actions:{
 		init({ dispatch, commit, state }){
