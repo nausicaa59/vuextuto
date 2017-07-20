@@ -1,6 +1,5 @@
 <template>
     <div class="form-group image-upade">
-        <label>Image Catégorie</label>
         <div class="input-group">                     
             <label class="input-group-btn">
                 <span class="btn btn-primary">
@@ -19,7 +18,7 @@
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             {{erreur}}         
         </div> 
-        <img :src="source" v-if="source!==''">
+        <img :src="source" v-if="source!=='' && preview">
 
     </div>
 </template>
@@ -30,7 +29,7 @@ import * as tools from './../tools';
 
 export default {
     name: 'InputUploadFile',
-    props: ["source","uploader", "errSource", "statusLoad"],
+    props: ["source","uploader", "errSource", "statusLoad", "preview"],
     methods : {
         upload : function(e){
             var self = this;

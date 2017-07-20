@@ -7,6 +7,7 @@
                     <element-barre-action-add :index="0"></element-barre-action-add>
                     <div v-for="element, key in contenu" class="input_block">
                         <div class="element">
+                            <element-image :index="key" v-if="element.type === 'image'"></element-image>
                             <element-text :index="key" v-if="element.type === 'text'"></element-text>
                             <div class="bt_close" v-on:click="blockDelete(key)">Supprimer</div>
                         </div>
@@ -22,12 +23,14 @@
 import { mapGetters, mapMutations } from 'vuex'
 import ElementBarreActionAdd from './components/ElementBarreActionAdd.vue'; 
 import ElementText from './components/ElementText.vue'; 
+import ElementImage from './components/ElementImage.vue'; 
 
 export default {
     name: 'ArticleComposer',
     components: {
         ElementBarreActionAdd,
-        ElementText
+        ElementText,
+        ElementImage
     },
     computed : {
         ...mapGetters([

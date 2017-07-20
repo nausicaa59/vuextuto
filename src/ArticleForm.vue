@@ -58,6 +58,7 @@
                     </div>
                     <div class="col-md-6">
                         <input-upload-file
+                            :preview="true"
                             :statusLoad="load_img_catego" 
                             :source="img_catego" 
                             :errSource="erreur_img_catego" 
@@ -109,7 +110,8 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <input-upload-file 
+                        <input-upload-file
+                            :preview="true" 
                             :source="fa_image" 
                             :statusLoad="load_fa_image"
                             :errSource="erreur_fa_image" 
