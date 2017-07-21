@@ -3,7 +3,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 input">
-                    Composeur !
                     <element-barre-action-add :index="0"></element-barre-action-add>
                     <div v-for="element, key in contenu" class="input_block">
                         <div class="element">

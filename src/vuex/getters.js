@@ -1,3 +1,5 @@
+import {generateurHTML, generateurCodeHTML, generateurCodeJS} from './generateHTML';
+
 export const meta_title 				=	state => state.article.meta_title;
 export const meta_description 			= 	state => state.article.meta_description;
 export const title 						=	state => state.article.title;
@@ -31,3 +33,10 @@ export const erreur_fa_description 		= 	state => state.erreurs.fa_description;
 export const erreur_contenu 			= 	state => state.erreurs.contenu;
 export const load_img_catego 			= 	state => state.load.img_catego;
 export const load_fa_image 				= 	state => state.load.fa_image;
+export const output_html                =   state => generateurHTML(state.article.contenu);
+export const output_src                 =   state => generateurCodeHTML(state.article.contenu);
+export const output_jsonArticle         =   state => generateurCodeJS(JSON.stringify(state.article));
+
+
+
+
