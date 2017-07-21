@@ -27,7 +27,7 @@
 <script>
 import ArticleForm from './ArticleForm.vue';
 import ArticleComposer from './ArticleComposer.vue'; 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 
 export default {
@@ -51,7 +51,7 @@ export default {
     },
     created() {
         console.log("init appli principal !")
-        this.$store.dispatch('init');
+        this.init();
     },
     methods : {
         call_preview : function(){
@@ -79,8 +79,12 @@ export default {
             this.display_preview = false;
         },
         call_save : function(){
-            console.log(this.jsonArticle);
+            this.save();
         },
+        ...mapActions([
+            "init",
+            "save",
+        ]),
     }
 }
 </script>

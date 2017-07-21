@@ -125,19 +125,19 @@ export const mutations = {
 	    state.erreurs.img_catego.erreurs = vals.erreurs;
 	},		
 	article(state, vals) {
-		console.log("changement articles :",vals);
-		state.article.meta_title			=	"",
-		state.article.meta_description		=	"",
-		state.article.title 				=	"",
-		state.article.slug 					=	"",	            
-		state.article.description 			=	"",
-		state.article.categorie 			=	"cat3",
-		state.article.auteur 				=	"",
-		state.article.tags 					=	[],
-		state.article.img_catego	  		=	"",
-		state.article.fa_image 				=	"",
-		state.article.fa_title 				=	"",
-		state.article.fa_description		=	""  
+		state.article.meta_title			=	vals.meta_title,
+		state.article.meta_description		=	vals.meta_description,
+		state.article.title 				=	vals.title,
+		state.article.slug 					=	vals.slug,	            
+		state.article.description 			=	vals.description,
+		state.article.categorie 			=	vals.categorie,
+		state.article.auteur 				=	vals.auteur,
+		state.article.tags 					=	vals.tags,
+		state.article.img_catego	  		=	vals.img_catego,
+		state.article.fa_image 				=	vals.fa_image,
+		state.article.fa_title 				=	vals.fa_title,
+		state.article.fa_description		=	vals.fa_description  
+		state.article.contenu				=	vals.contenu  
 	},
 	load_img_catego(state, vals) {
 		state.load.img_catego.start = vals.start;
@@ -154,7 +154,6 @@ export const mutations = {
         	auteur:"",
         	auteurUrl:"",
         	label:"",
-        	html:"",
         	start : false, 
         	pourc : 0,
         	valide:false,
@@ -165,7 +164,6 @@ export const mutations = {
 		state.article.contenu.splice(vals,0,{
         	type:"text",
         	src:"",
-        	html:""
         });
 	},
 	contenuDeleteBlock(state, vals) {
@@ -193,5 +191,8 @@ export const mutations = {
 	contenuEditImageBlockLoadError(state,vals) {
 		state.article.contenu[vals.index].valide = vals.valide;
 		state.article.contenu[vals.index].erreurs = vals.erreurs;
+	},
+	composerAvailableAction(state,vals) {
+		state.composer.availableAction = vals;
 	},
 }

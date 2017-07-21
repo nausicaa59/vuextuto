@@ -2,7 +2,7 @@ import {api} from '../configs'
 import axios from 'axios';
 import * as tools from '../tools';
 
-export const init = ({ dispatch, commit, state }) => {
+export const init = ({ dispatch, commit }) => {
 	var self = this;
 	let promises = [
 		dispatch('initCategories'),
@@ -18,17 +18,18 @@ export const init = ({ dispatch, commit, state }) => {
 	});
 }
 
-export const initData = ({ commit, state }) => {
+export const initData = ({ commit, dispatch }) => {
 	return axios.get(api.article.get)
 		.then(function (response) {
-			commit('article',response.data);				
+			commit('article',JSON.parse(response.data));
+            dispatch('controllerAll');
 		})
 		.catch(function (error) {	
 			commit('test',"data erreur");	
 		});
 }
 
-export const initCategories = ({ commit, state }) => {
+export const initCategories = ({ commit }) => {
 	return axios.get(api.categorie.get)
 		.then(function (response) {
 			commit('categories',response.data);				
@@ -38,7 +39,7 @@ export const initCategories = ({ commit, state }) => {
 		});
 }
 
-export const initAuteurs = ({ commit, state }) => {
+export const initAuteurs = ({ commit }) => {
 	return axios.get(api.auteur.get)
 		.then(function (response) {
 			commit('auteurs',response.data);				
@@ -48,7 +49,7 @@ export const initAuteurs = ({ commit, state }) => {
 		});
 }
 
-export const uploadFaImage = ({ commit, state }, val) => {
+export const uploadFaImage = ({ commit }, val) => {
 	commit('load_fa_image',{start:true, pour:0});
 	
     axios.post(api.image.post, val)
@@ -66,7 +67,7 @@ export const uploadFaImage = ({ commit, state }, val) => {
     });	
 }
 
-export const uploadImgCatego = ({ commit, state }, val) => {
+export const uploadImgCatego = ({ commit }, val) => {
 	commit('load_img_catego',{start:true, pour:0});
 
     axios.post(api.image.post, val)
@@ -82,7 +83,7 @@ export const uploadImgCatego = ({ commit, state }, val) => {
 }
 
 
-export const uploadImgContenu = ({ commit, state }, val) => {
+export const uploadImgContenu = ({ commit }, val) => {
 	commit('contenuEditImageBlockLoadStatus', {
 		index: val.index, 
 		start:true, 
@@ -118,4 +119,36 @@ export const uploadImgContenu = ({ commit, state }, val) => {
     		pour:100
     	});
     });	
+}
+
+
+export const controllerAll = ({ commit }) => {
+    commit('controllerMetaTitle',{});
+    commit('controllerMetaTitle',[]);
+    commit('controllerMetaDescription',[]);
+    commit('controllerTitle',[]);
+    commit('controllerSlug',[]);
+    commit('controllerDescription',[]);
+    commit('controllerCategorie',[]);
+    commit('controllerAuteur',[]);
+    commit('controllerTags',[]);
+    commit('controllerImgCatego',[]);
+    commit('controllerFaImage',[]);
+    commit('controllerFaTitle',[]);
+    commit('controllerFaDescription',[]);
+    commit('controllerContenu',[]);
+}
+
+
+export const save = ({ commit, getters }) => {
+    var params = new URLSearchParams();
+    params.append('contenu', JSON.stringify(getters.jsonArticle));
+
+    axios.post(api.article.post, params)
+    .then(function (response) {
+        console.log(response);
+    })
+    .catch(function (error) {
+
+    }); 
 }

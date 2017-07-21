@@ -12,7 +12,6 @@ Vue.use(Vuex)
 const state = {
 	categories:[],
   	auteurs:[],
-  	count: 0,
   	article : {
 		meta_title: "",
 		meta_description: "",
@@ -46,7 +45,7 @@ const state = {
   	load : {
   		img_catego : { start : false, pourc : 0	},
   		fa_image : { start : false, pourc : 0 }
-  	}
+  	},
 }
 
 const store = new Vuex.Store({

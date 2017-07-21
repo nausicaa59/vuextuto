@@ -10,7 +10,8 @@ export var api = {
 		get : "http://api-cms.dev/auteur.php"
 	},
 	article : {
-		get : "http://api-cms.dev/article.php"		
+		get : "http://api-cms.dev/article.php",
+		post : "http://api-cms.dev/insert.php"		
 	}
 }
 
