@@ -13,23 +13,3 @@ export function slug(a) {
 	slug = slug.replace(/\s+/g, '-');		      
 	return slug;
 }
-
-
-export function uploadImageFromFileList(fileList, url, callSuccess, callError) {
-    // append the files to FormData
-    var formData = new FormData();
-    Array
-	.from(Array(fileList.length).keys())
-    .map(x => {
-        formData.append("uploadFieldName", fileList[x], fileList[x].name);
-    });
-
-    //call ajax
-    axios.post(url, formData)
-    .then(function (response) {
-        callSuccess(response);
-    })
-    .catch(function (error) {
-        callError(error);
-    });	
-}

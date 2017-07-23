@@ -1,6 +1,6 @@
-import {api} from '../configs'
+import {api} from '../../../lib/api-cms'
 import axios from 'axios';
-import * as tools from '../tools';
+import * as tools from '../../../lib/tools';
 
 export const init = ({ dispatch, commit }) => {
 	var self = this;

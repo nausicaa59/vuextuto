@@ -61,7 +61,7 @@ export default {
         InputUploadFile
     },
     computed : {
-        ...mapGetters([
+        ...mapGetters("article",[
             "contenuByIndex",
             "load_image_contenu"
         ]),
@@ -108,14 +108,14 @@ export default {
         }
     },
     methods : {
-        ...mapMutations([
+        ...mapMutations("article",[
             "contenuEditTextBlock",
             "contenuEditImageBlockSrc",
             "contenuEditImageBlockAuteur",
             "contenuEditImageBlockAuteurUrl",
             "contenuEditImageBlockLabel"
         ]),
-        ...mapActions([
+        ...mapActions("article",[
             "uploadImgContenu"
         ]),
         uploader: function(data){

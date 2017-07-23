@@ -32,7 +32,7 @@ export default {
         ElementImage
     },
     computed : {
-        ...mapGetters([
+        ...mapGetters("article",[
             "contenu"
         ])
     },
@@ -43,7 +43,7 @@ export default {
         blockDelete : function(cible){
             this.contenuDeleteBlock(cible);
         },
-        ...mapMutations([
+        ...mapMutations("article",[
             "contenuDeleteBlock"
         ])
     }

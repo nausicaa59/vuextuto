@@ -1,5 +1,5 @@
-import {validation} from '../Validations';
-import * as tools from '../tools';
+import {validationArticle} from '../../../lib/Validations';
+import * as tools from '../../../lib/tools';
 
 export const mutations = {
 	meta_title: (state, vals) => {
@@ -52,67 +52,67 @@ export const mutations = {
 		state.auteurs = vals;
 	},
 	controllerMetaTitle : (state, vals) => {
-		let test = validation.meta_title(state.article.meta_title);
+		let test = validationArticle.meta_title(state.article.meta_title);
 	    state.erreurs.meta_title.valide = test.valide;
 	    state.erreurs.meta_title.erreurs = test.erreurs;
 	},
 	controllerMetaDescription : (state, vals) => {
-		let test = validation.meta_description(state.article.meta_description);
+		let test = validationArticle.meta_description(state.article.meta_description);
 	    state.erreurs.meta_description.valide = test.valide;
 	    state.erreurs.meta_description.erreurs = test.erreurs;
 	},
 	controllerTitle : (state, vals) => {
-		let test = validation.title(state.article.title);
+		let test = validationArticle.title(state.article.title);
 	    state.erreurs.title.valide = test.valide;
 	    state.erreurs.title.erreurs = test.erreurs;
 	},
 	controllerSlug : (state, vals) => {
-		let test = validation.slug(state.article.slug);
+		let test = validationArticle.slug(state.article.slug);
 	    state.erreurs.slug.valide = test.valide;
 	    state.erreurs.slug.erreurs = test.erreurs;
 	},
 	controllerDescription : (state, vals) => {
-		let test = validation.description(state.article.description);
+		let test = validationArticle.description(state.article.description);
 	    state.erreurs.description.valide = test.valide;
 	    state.erreurs.description.erreurs = test.erreurs;
 	},
 	controllerCategorie : (state, vals) => {
-		let test = validation.categorie(state.article.categorie);
+		let test = validationArticle.categorie(state.article.categorie);
 	    state.erreurs.categorie.valide = test.valide;
 	    state.erreurs.categorie.erreurs = test.erreurs;
 	},
 	controllerAuteur : (state, vals) => {
-		let test = validation.auteur(state.article.auteur);
+		let test = validationArticle.auteur(state.article.auteur);
 	    state.erreurs.auteur.valide = test.valide;
 	    state.erreurs.auteur.erreurs = test.erreurs;
 	},
 	controllerTags : (state, vals) => {
-		let test = validation.tags(state.article.tags);
+		let test = validationArticle.tags(state.article.tags);
 	    state.erreurs.tags.valide = test.valide;
 	    state.erreurs.tags.erreurs = test.erreurs;
 	},
 	controllerImgCatego : (state, vals) => {
-		let test = validation.img_catego(state.article.img_catego);
+		let test = validationArticle.img_catego(state.article.img_catego);
 	    state.erreurs.img_catego.valide = test.valide;
 	    state.erreurs.img_catego.erreurs = test.erreurs;
 	},
 	controllerFaImage : (state, vals) => {
-		let test = validation.fa_image(state.article.fa_image);
+		let test = validationArticle.fa_image(state.article.fa_image);
 	    state.erreurs.fa_image.valide = test.valide;
 	    state.erreurs.fa_image.erreurs = test.erreurs;
 	},
 	controllerFaTitle : (state, vals) => {
-		let test = validation.fa_title(state.article.fa_title);
+		let test = validationArticle.fa_title(state.article.fa_title);
 	    state.erreurs.fa_title.valide = test.valide;
 	    state.erreurs.fa_title.erreurs = test.erreurs;
 	},
 	controllerFaDescription : (state, vals) => {
-		let test = validation.fa_description(state.article.fa_description);
+		let test = validationArticle.fa_description(state.article.fa_description);
 	    state.erreurs.fa_description.valide = test.valide;
 	    state.erreurs.fa_description.erreurs = test.erreurs;
 	},
 	controllerContenu : (state, vals) => {
-		let test = validation.contenu(state.article.contenu);
+		let test = validationArticle.contenu(state.article.contenu);
 	    state.erreurs.contenu.valide = test.valide;
 	    state.erreurs.contenu.erreurs = test.erreurs;
 	},

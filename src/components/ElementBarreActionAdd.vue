@@ -56,7 +56,7 @@ export default {
                 this.contenuAddTextBlock(this.index);
             }        		
     	},
-        ...mapMutations([
+        ...mapMutations("article",[
             "contenuAddImageBlock",
             "contenuAddTextBlock"
         ])

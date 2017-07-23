@@ -3,13 +3,36 @@
 import Vue from 'vue'
 import App from './App'
 import store from './vuex/store'
+import VueRouter from 'vue-router';
+
+import Article from './Article'
+import test from './test'
 
 Vue.config.productionTip = false
+
+// create router instance and define routes
+Vue.use(VueRouter);
+
+let router = new VueRouter({
+  routes: [
+    { name: 'index', path: '/', component: Article },
+    { name: 'movie', path: '/movie/', component: test }
+  ],
+  hashbang: false,
+  mode: 'history',
+  root: '/',
+  saveScrollPosition: true
+});
+
+
+
+
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   template: '<App/>',
   store,
+  router,
   components: { App }
 })

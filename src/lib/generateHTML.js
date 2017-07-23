@@ -65,6 +65,8 @@ export const generateurCodeHTML = function(blocks){
 };
 
 export const generateurCodeJS = function(jsData){
+	console.log(jsData);
+	
 	var html = beautify(jsData, {
 		wrap_line_length:10000, 
 		wrap_attributes:"force-expand-multiline", 

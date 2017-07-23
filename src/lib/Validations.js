@@ -7,7 +7,7 @@ function formatReponse(test) {
 	};
 }
 
-export var validation = {
+export var validationArticle = {
 	elements:function(a){
 		return {
 			valide : true,

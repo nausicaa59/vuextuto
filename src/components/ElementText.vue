@@ -21,12 +21,12 @@ export default {
             	this.contenuEditTextBlock({index: this.index, value});
             }
         },
-        ...mapGetters([
+        ...mapGetters("article",[
             "contenuByIndex"
         ])
     },
     methods : {
-        ...mapMutations([
+        ...mapMutations("article",[
             "contenuEditTextBlock"
         ])
     },

@@ -11,7 +11,7 @@
                 <!-- infos Générale -->
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" v-bind:class="classObject(erreur_title.valide)">                    
+                        <div class="form-group" v-bind:class="classInError(erreur_title.valide)">                    
                             <label>Titre</label>
                             <input type="text" class="form-control" v-model="title">
                         </div>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" v-bind:class="classObject(erreur_categorie.valide)">                    
+                        <div class="form-group" v-bind:class="classInError(erreur_categorie.valide)">                    
                             <label>Catégorie</label>
                             <select class="form-control"  v-model="categorie">
                                 <option :value="catego.slug" v-for="catego in categories">{{catego.nom}}</option>
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group" v-bind:class="classObject(erreur_auteur.valide)">                    
+                        <div class="form-group" v-bind:class="classInError(erreur_auteur.valide)">                    
                             <label>Auteur</label>
                             <select class="form-control"  v-model="auteur">
                                 <option :value="item_auteur.slug" v-for="item_auteur in auteurs">{{item_auteur.nom}}</option>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" v-bind:class="classObject(erreur_description.valide)">                  
+                        <div class="form-group" v-bind:class="classInError(erreur_description.valide)">                  
                             <label>Description</label>
                             <textarea class="form-control" v-model="description"></textarea>
                         </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group" v-bind:class="classObject(erreur_meta_title.valide)">                
+                        <div class="form-group" v-bind:class="classInError(erreur_meta_title.valide)">                
                             <label>Méta Title</label>
                             <input type="text" class="form-control"  v-model="meta_title">
                         </div>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group" v-bind:class="classObject(erreur_meta_description.valide)">             
+                        <div class="form-group" v-bind:class="classInError(erreur_meta_description.valide)">             
                             <label>Méta-Description</label>
                             <textarea class="form-control" v-model="meta_description"></textarea>
                         </div>
@@ -96,7 +96,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group" v-bind:class="classObject(erreur_fa_title.valide)">                 
+                        <div class="form-group" v-bind:class="classInError(erreur_fa_title.valide)">                 
                             <label>Title</label>
                             <input type="text" class="form-control" v-model="fa_title">
                         </div>
@@ -104,7 +104,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group" v-bind:class="classObject(erreur_fa_description.valide)">          
+                        <div class="form-group" v-bind:class="classInError(erreur_fa_description.valide)">          
                             <label>Description</label>
                             <textarea class="form-control" v-model="fa_description"></textarea>
                         </div>
@@ -142,34 +142,34 @@ name: 'ArticleForm',
     computed : {
         meta_title: {
             get () {
-                return this.$store.getters.meta_title;
+                return this.$store.getters['article/meta_title'];
             },
             set (value) {
-                this.$store.commit('meta_title', value);
-                this.$store.commit('controllerMetaTitle', value);
+                this.$store.commit('article/meta_title', value);
+                this.$store.commit('article/controllerMetaTitle', value);
             }
         },
         meta_description: {
             get () {
-                return this.$store.getters.meta_description;
+                return this.$store.getters['article/meta_description'];
             },
             set (value) {
-                this.$store.commit('meta_description', value);
-                this.$store.commit('controllerMetaDescription', value);
+                this.$store.commit('article/meta_description', value);
+                this.$store.commit('article/controllerMetaDescription', value);
             }
         },
         title: {
             get () {
-                return this.$store.getters.title;
+                return this.$store.getters['article/title'];
             },
             set (value) {
-                this.$store.commit('title', value);
-                this.$store.commit('controllerTitle', value);
+                this.$store.commit('article/title', value);
+                this.$store.commit('article/controllerTitle', value);
             }
         },
         slug: {
             get () {
-                return this.$store.getters.slug;
+                return this.$store.getters['article/slug'];
             },
             set (value) {
                 
@@ -177,76 +177,69 @@ name: 'ArticleForm',
         },
         description: {
             get () {
-                return this.$store.getters.description;
+                console.log("ok");
+                return this.$store.getters['article/description'];
             },
             set (value) {
-                this.$store.commit('description', value);
-                this.$store.commit('controllerDescription', value);
+                this.$store.commit('article/description', value);
+                this.$store.commit('article/controllerDescription', value);
             }
         },
         categorie: {
             get () {
-                return this.$store.getters.categorie;
+                return this.$store.getters['article/categorie'];
             },
             set (value) {
-                this.$store.commit('categorie', value);
-                this.$store.commit('controllerCategorie', value);
+                this.$store.commit('article/categorie', value);
+                this.$store.commit('article/controllerCategorie', value);
             }
         },
         auteur: {
             get () {
-                return this.$store.getters.auteur;
+                return this.$store.getters['article/auteur'];
             },
             set (value) {
-                this.$store.commit('auteur', value);
-                this.$store.commit('controllerAuteur', value);
+                this.$store.commit('article/auteur', value);
+                this.$store.commit('article/controllerAuteur', value);
             }
         },
         tags: {
             get () {
-                return this.$store.getters.tags;
+                return this.$store.getters['article/tags'];
             },
             set (value) {
-                this.$store.commit('tags', value);
-                this.$store.commit('controllerTags', value);
+                this.$store.commit('article/tags', value);
+                this.$store.commit('article/controllerTags', value);
             }
         },
         img_catego: {
             get () {
-                return this.$store.getters.img_catego;
+                return this.$store.getters['article/img_catego'];
             },
             set (value) {
-                this.$store.commit('img_catego', value);
-                this.$store.commit('controllerImgCatego', value);
+                this.$store.commit('article/img_catego', value);
+                this.$store.commit('article/controllerImgCatego', value);
             }
         },
         fa_title: {
             get () {
-                return this.$store.getters.fa_title;
+                return this.$store.getters['article/fa_title'];
             },
             set (value) {
-                this.$store.commit('fa_title', value);
-                this.$store.commit('controllerFaTitle', value);
+                this.$store.commit('article/fa_title', value);
+                this.$store.commit('article/controllerFaTitle', value);
             }
         },
         fa_description: {
             get () {
-                return this.$store.getters.fa_description;
+                return this.$store.getters['article/fa_description'];
             },
             set (value) {
-                this.$store.commit('fa_description', value);
-                this.$store.commit('controllerFaDescription', value);
+                this.$store.commit('article/fa_description', value);
+                this.$store.commit('article/controllerFaDescription', value);
             }
         },
-        contenu: {
-            get () {
-                return this.$store.getters.contenu;
-            },
-            set (value) {
-                this.$store.commit('contenu', value)
-            }
-        },
-        ...mapGetters([
+        ...mapGetters("article",[
             "categories",
             "auteurs",
             "erreur_meta_title",
@@ -261,7 +254,6 @@ name: 'ArticleForm',
             "erreur_fa_image",
             "erreur_fa_title",
             "erreur_fa_description",
-            "erreur_contenu",
             "fa_image",
             "img_catego",
             "load_img_catego",
@@ -282,12 +274,12 @@ name: 'ArticleForm',
             this.afficher = !this.afficher;
         },
         UploadfaImage : function(val){
-            this.$store.dispatch('uploadFaImage', val);
+            this.$store.dispatch('article/uploadFaImage', val);
         },
         UploadCategoImage : function(val){
-            this.$store.dispatch('uploadImgCatego', val);
+            this.$store.dispatch('article/uploadImgCatego', val);
         },
-        classObject: function (isValide) {
+        classInError: function (isValide) {
             return {
                 'valide': isValide,
                 'err': !isValide,
