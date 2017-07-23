@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="articleForm">
         <div class="container">
             <div class="row sectionSeparateur">
                 <div class="col-md-12">
@@ -289,14 +289,13 @@ name: 'ArticleForm',
 }
 </script>
 
-<style lang="less">
-#app {
+<style lang="less" scoped>
+#articleForm {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: left;
     color: #2c3e50;
-    margin-top: 60px;
 
     .sectionSeparateur
     {

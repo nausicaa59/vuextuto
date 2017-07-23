@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="article">
         <article-form v-if="this.display_form"></article-form>
         <article-composer v-if="this.display_composer"></article-composer>
         <zone-rendu-code v-if="this.display_code"></zone-rendu-code>
@@ -93,7 +93,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .bar-tools
 {
     position:fixed;

@@ -15,8 +15,8 @@ Vue.use(VueRouter);
 
 let router = new VueRouter({
   routes: [
-    { name: 'index', path: '/', component: Article },
-    { name: 'movie', path: '/movie/', component: test }
+    { name: 'index', path: '/', component: test },
+    { name: 'article', path: '/articles/', component: Article }
   ],
   hashbang: false,
   mode: 'history',

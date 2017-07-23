@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="articleComposer">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 input">
@@ -50,34 +50,37 @@ export default {
 }
 </script>
 
-<style lang="less">
-.input_block
+<style lang="less" scoped>
+#articleComposer
 {
-    position: relative;
-    margin-bottom: 30px;
-
-    .element
+    .input_block
     {
-        .bt_close
-        {
-            position: absolute;
-            top:1px;
-            right:1px;
-            padding:10px;
-            background-color: #a94442;
-            color: white;
-            display: block;
-            cursor: pointer;
-            display: none;
-        }
+        position: relative;
+        margin-bottom: 30px;
 
-        &:hover
+        .element
         {
             .bt_close
             {
+                position: absolute;
+                top:1px;
+                right:1px;
+                padding:10px;
+                background-color: #a94442;
+                color: white;
                 display: block;
+                cursor: pointer;
+                display: none;
             }
-        }               
-    }   
+
+            &:hover
+            {
+                .bt_close
+                {
+                    display: block;
+                }
+            }               
+        }   
+    }    
 }
 </style>

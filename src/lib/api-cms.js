@@ -11,7 +11,8 @@ export var api = {
 	},
 	article : {
 		get : "http://api-cms.dev/article.php",
-		post : "http://api-cms.dev/insert.php"		
+		post : "http://api-cms.dev/insert.php",
+		search : "http://api-cms.dev/articleSearch.php",		
 	}
 }
 

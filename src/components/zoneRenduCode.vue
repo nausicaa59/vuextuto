@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="zonerenducode">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -104,7 +104,8 @@ export default {
         img
         {
             max-width: 100%;
-        }
+        }  
+
 
         p
         {

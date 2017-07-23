@@ -65,7 +65,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     .tool_barre
     {
     	margin-top: 50px;
