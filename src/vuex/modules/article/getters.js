@@ -1,6 +1,7 @@
 import {generateurHTML, generateurCodeHTML, generateurCodeJS} from '../../../lib/generateHTML';
 
 export default {
+	idArticle				:	state => state.idArticle,
 	meta_title 				:	state => state.article.meta_title,
 	meta_description 		:	state => state.article.meta_description,
 	title 					:	state => state.article.title,
@@ -36,6 +37,6 @@ export default {
 	load_fa_image 			:	state => state.load.fa_image,
 	output_html             :   state => generateurHTML(state.article.contenu),
 	output_src              :   state => generateurCodeHTML(state.article.contenu),
-	output_jsonArticle      :   (state, getters, rootState) => generateurCodeJS(JSON.stringify(rootState)),
+	output_jsonArticle      :   (state, getters, rootState) => generateurCodeJS(JSON.stringify(state)),
 	montest		: 	state => "ok"
 }

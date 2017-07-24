@@ -134,6 +134,63 @@ export var validationArticle = {
 
 		return formatReponse(test);
 	}
-}
+};
 
+
+export var validationCategorie = {
+	meta_title:function(a){
+		let test = approve.value(a, {
+			min: {
+				min:4,
+				message: 'La meta title est trop courte'
+			}
+		});
+
+		return formatReponse(test);
+	},
+	meta_description:function(a){
+		let test = approve.value(a, {
+			min: {
+				min:4,
+				message: 'La meta description est trop courte'
+			}
+		});
+
+		return formatReponse(test);
+	},
+	title:function(a){
+		let test = approve.value(a, {
+			min: {
+				min:4,
+				message: 'Le titre est trop courte'
+			},
+			max: {
+				max:150,
+				message: 'Le titre est trop long'
+			},
+		});
+
+		return formatReponse(test);
+	},
+	slug:function(a){
+		let test = approve.value(a, {
+			min: {
+				min:4,
+				message: 'Le slug est trop court'
+			}
+		});
+
+		return formatReponse(test);
+	},	            
+	description:function(a){
+		let test = approve.value(a, {
+			min: {
+				min:4,
+				message: 'La description est trop courte'
+			}
+		});
+
+		return formatReponse(test);
+	},
+}
 

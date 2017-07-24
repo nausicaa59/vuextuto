@@ -10,9 +10,9 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Auteurs<span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Articles</a></li>
-                <li><a href="#">Link</a></li>
+                <li><router-link :to="{ name: 'index'}">Articles</router-link></li>
+                <li><router-link :to="{ name: 'categorieCreate'}">Catégories</router-link></li>
+                <li><router-link :to="{ name: 'index'}">Tags</router-link></li>
               </ul>
               <form class="navbar-form navbar-right">
                 <div class="form-group">

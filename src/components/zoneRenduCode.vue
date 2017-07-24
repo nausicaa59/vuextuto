@@ -4,10 +4,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="liste_action">
-                        <button type="button" class="btn" v-on:click="switcher('preview')">Voir le Preview</button>
-                        <button type="button" class="btn" v-on:click="switcher('html')">Voir le HTML</button>
-                        <button type="button" class="btn" v-on:click="switcher('json')">Voir le JSON</button>
-                        <button type="button" class="btn" v-on:click="switcher('json')">Voir les logs</button>
+                        <button type="button" class="btn" v-on:click="switcher('preview')" v-if="display_preview">Voir le Preview</button>
+                        <button type="button" class="btn" v-on:click="switcher('html')" v-if="display_src">Voir le HTML</button>
+                        <button type="button" class="btn" v-on:click="switcher('json')" v-if="display_json">Voir l'état</button>
                     </div>
                 </div>
             </div>
@@ -28,6 +27,15 @@ import { mapGetters } from 'vuex'
 
 export default {
     name: 'zoneRenduCode',
+    props : [
+        'output_preview', 
+        'output_src', 
+        'output_json',
+        'display_preview',
+        'display_src',
+        'display_json',
+        'default'
+    ],
     data () {
         return {
             display_html:true,
@@ -36,19 +44,32 @@ export default {
         }
     },
     created() {
-        this.src = this.output_html;
-    },
-    computed : {
-        ...mapGetters("article", [
-            "output_html",
-            "output_src",
-            "output_jsonArticle"
-        ])
+        console.log(this.default);
+        if(this.default == "html")
+        {
+            this.display_html = true,
+            this.display_code = false,
+            this.src = this.output_preview;
+        }
+
+        if(this.default == "src")
+        {
+            this.display_html = false,
+            this.display_code = true,
+            this.src = this.output_src;
+        }
+
+        if(this.default == "json")
+        {
+            this.display_html = false,
+            this.display_code = true,
+            this.src = this.output_json;
+        }        
     },
     methods : {
         switcher : function(type){
             if(type == "json"){
-                this.src = this.output_jsonArticle;
+                this.src = this.output_json;
                 this.display_html = false;
                 this.display_code = true;                
             }
@@ -60,7 +81,7 @@ export default {
             }
 
             if(type == "preview"){
-                this.src = this.output_html;
+                this.src = this.output_preview;
                 this.display_html = true;
                 this.display_code = false;                
             }

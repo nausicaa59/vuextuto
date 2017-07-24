@@ -96,7 +96,7 @@ export default {
             "search"
         ]),
         goArticle : function(id){
-            this.$router.push({ name: 'article'});
+            this.$router.push({ name: 'articleEdit', params: { id: id }});
         }
     }
 }

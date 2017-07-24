@@ -2,7 +2,7 @@ import {api} from '../../../lib/api-cms'
 import axios from 'axios';
 import * as tools from '../../../lib/tools';
 
-export const init = ({ dispatch, commit }) => {
+export const init = ({ dispatch, commit, getters }) => {
 	var self = this;
 	let promises = [
 		dispatch('initCategories'),
@@ -11,7 +11,10 @@ export const init = ({ dispatch, commit }) => {
 
 	axios.all(promises)
     .then(function () {
-    	dispatch('initData'); 
+        if(getters.idArticle != false)
+        {
+            dispatch('initData');
+        }    	 
     })
 	.catch(function (error) {
 		console.log("erreur !");
@@ -140,13 +143,28 @@ export const controllerAll = ({ commit }) => {
 }
 
 
-export const save = ({ commit, getters }) => {
+export const create = ({ commit, getters }) => {
     var params = new URLSearchParams();
     params.append('contenu', JSON.stringify(getters.jsonArticle));
 
     axios.post(api.article.post, params)
     .then(function (response) {
-        console.log(response);
+        console.log("create", response);
+    })
+    .catch(function (error) {
+
+    }); 
+}
+
+
+export const update = ({ commit, getters }) => {
+    var params = new URLSearchParams();
+    params.append('contenu', JSON.stringify(getters.jsonArticle));
+    params.append('id', JSON.stringify(getters.jsonArticle));
+
+    axios.post(api.article.update, params)
+    .then(function (response) {
+        console.log("update", response);
     })
     .catch(function (error) {
 

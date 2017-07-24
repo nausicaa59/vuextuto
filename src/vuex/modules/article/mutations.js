@@ -2,6 +2,9 @@ import {validationArticle} from '../../../lib/Validations';
 import * as tools from '../../../lib/tools';
 
 export const mutations = {
+	editIdArticle: (state, vals) => {
+	    state.idArticle = vals;
+	},
 	meta_title: (state, vals) => {
 	    state.article.meta_title = vals;
 	},

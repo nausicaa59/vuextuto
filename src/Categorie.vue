@@ -1,17 +1,16 @@
 <template>
-    <div id="article">
-        <article-form v-if="this.display_form"></article-form>
-        <article-composer v-if="this.display_composer"></article-composer>
+    <div id="categorie">
         <zone-rendu-code 
-            v-if="this.display_code"
-            :display_preview="true"
-            :display_src="true"
+            v-if="display_code"
+            :display_preview="false"
+            :display_src="false"
             :display_json="true"
-            :output_preview="output_html"
-            :output_src="output_src"
-            :output_json="output_jsonArticle"
+            :output_preview="''"
+            :output_src="''"
+            :output_json="output_json"
             :default="'json'">
         </zone-rendu-code>
+        <categorie-form v-if="display_form"></categorie-form>
         <div class="bar-tools">
             <ul>
                 <li v-on:click="call_save()" class="bt_save">
@@ -20,85 +19,50 @@
                 <li v-on:click="call_form()" class="bt_view" v-bind:class="{ active: display_form }">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </li>
-                <li v-on:click="call_composer()" class="bt_view" v-bind:class="{ active: display_composer }">
-                    <i class="fa fa-magic" aria-hidden="true"></i>
-                </li>
                 <li v-on:click="call_code()" class="bt_view" v-bind:class="{ active: display_code }">       
                     <i class="fa fa-eye" aria-hidden="true"></i>
-                </li>               
+                </li>  
             </ul>
         </div>
     </div>
 </template>
 
 <script>
-import ArticleForm from './ArticleForm.vue';
-import ArticleComposer from './ArticleComposer.vue'; 
+import CategorieForm from './CategorieForm.vue';
 import zoneRenduCode from './components/zoneRenduCode.vue'; 
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 
 export default {
-    name: 'Article',
+    name: 'Categorie',
     props : ['id'],
     data () {
         return {
-            display_composer:false,
             display_code:false,
-            display_preview:false,
             display_form:true,
         }
     },
     components: {
-        ArticleForm,
-        ArticleComposer,
+        CategorieForm,
         zoneRenduCode
     },
     computed : {
-        ...mapGetters("article", [
-            "jsonArticle",
-            "output_html",
-            "output_src",
-            "output_jsonArticle",
-            "montest",
-            "idArticle"
+        ...mapGetters("categorie", [
+            "idCategorie",
+            "output_json"
         ])
     },
     created() {
         if(this.id != undefined)
         {
-            this.editIdArticle(this.id);
+            this.editIdCategorie(this.id);
         }
 
         this.init();      
     },
     methods : {
-        call_preview : function(){
-            this.display_form = false;
-            this.display_composer = false;
-            this.display_code = false;
-            this.display_preview = true;
-        },
-        call_code : function(){
-            this.display_form = false;
-            this.display_composer = false;
-            this.display_code = true;
-            this.display_preview = false;
-        },
-        call_composer : function(){
-            this.display_form = false;
-            this.display_composer = true;
-            this.display_code = false;
-            this.display_preview = false;           
-        },
-        call_form : function(){
-            this.display_form = true;
-            this.display_composer = false;
-            this.display_code = false;
-            this.display_preview = false;
-        },
         call_save : function(){
-            if(this.idArticle)
+            if(this.idCategorie)
             {
                 this.update(); 
             }
@@ -107,13 +71,21 @@ export default {
                 this.create(); 
             }                      
         },
-        ...mapActions("article", [
+        call_code : function(){
+            this.display_form = false;
+            this.display_code = true;
+        },
+        call_form : function(){
+            this.display_form = true;
+            this.display_code = false;
+        },
+        ...mapActions("categorie", [
             "init",
             "create",
             "update"
         ]),
-        ...mapMutations("article", [
-            "editIdArticle"
+        ...mapMutations("categorie", [
+            "editIdCategorie"
         ]),
     }
 }
@@ -167,6 +139,4 @@ export default {
         }
     }
 }
-
-
 </style>
